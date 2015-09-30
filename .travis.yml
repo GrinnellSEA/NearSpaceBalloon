@@ -8,7 +8,6 @@ before_install:
   - sudo mv arduino-1.6.5 /usr/local/share/arduino
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
 install:
-  - ln -s $PWD comp/
 script:
   - arduino --verify --board arduino:avr:uno $PWD/comp/src/main.ino
   - arduino --verify --board arduino:avr:uno $PWD/comp/src/comm.ino
