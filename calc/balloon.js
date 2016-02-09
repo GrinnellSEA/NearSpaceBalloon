@@ -43,14 +43,13 @@ const base_h = 0;
  */
 function main() {
 	for (var v = 0.5; v < 2.0; v += 0.1) {
-		print("V = " + v.toFixed(4) + ",  ");
-		print("v = ");
-		print(getVelocity(v, base_h).toFixed(3));
-		print(",  h = ");
-		print(getBurstHeight(v).toFixed(0));
-		print(",  t = ");
-		print((getAscentTime(v) / 60).toFixed(0));
-		println();
+		var string =  "";
+		string += `V = ${v.toFixed(4)},  \t`;
+        string += `v = ${getVelocity(v, base_h).toFixed(3)},  \t`;
+        string += `h = ${getBurstHeight(v).toFixed(0)} m,  \t`;
+        string += `t = ${(getAscentTime(v) / 60).toFixed(0)} min`;
+
+        println(string);
 	}
 }
 
@@ -252,7 +251,10 @@ function println(txt) {
 	txt = txt || "";
 	$("#output").innerHTML += txt + "<br />";
 }
-function print(txt) {
-	txt = txt || "";
-	$("#output").innerHTML += txt;
+
+// if in node JS, 
+if (typeof window === "undefined") {
+    println = console.log.bind(console, "");
+
+    main();
 }
