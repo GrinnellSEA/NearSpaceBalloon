@@ -9,7 +9,7 @@
 
 #include "pressure.h"
 
-SFEBMP_180 pressureSensor;
+SFE_BMP180 pressureSensor;
 
 bool setupPressureSensor() {
     if (pressureSensor.begin()) {
