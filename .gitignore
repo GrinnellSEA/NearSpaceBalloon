@@ -1,4 +1,5 @@
 .build/
 a.out
 .tmp
+.swp
 .DS_STORE
