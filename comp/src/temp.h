@@ -14,8 +14,10 @@
 
 /**
  * Set up sensor.
+ *
+ * @return true if setup worked, false if not.
  */
-void setupTemperatureSensor();
+bool setupTemperatureSensor();
 
 /**
  * Reads current temperature from sensor.

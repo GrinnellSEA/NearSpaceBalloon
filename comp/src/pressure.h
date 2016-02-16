@@ -14,6 +14,13 @@
 #define PRESSURE_H_
 
 /**
+ * Set up sensor.
+ *
+ * @return true if setup worked, false if not.
+ */
+bool setupPressureSensor();
+
+/**
  * Reads current pressure from sensor.
  *
  * @return current pressure, in millibars.

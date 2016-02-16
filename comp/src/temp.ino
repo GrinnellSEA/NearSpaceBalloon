@@ -12,8 +12,9 @@
 #define TMP102_ADDRESS 0x48 // I2C address for sensor
 #define K_OFFSET 273.15 // 0°C in K
 
-void setupTemperatureSensor() {
+bool setupTemperatureSensor() {
     Wire.begin();
+    return true;
 }
 
 double getTemperature() {
