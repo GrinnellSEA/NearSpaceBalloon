@@ -4,7 +4,7 @@
  *
  * GRINNELL SPACE EXPLORATION AGENCY
  *
- * (c) 2015.  All Rights Reserved.
+ * © 2015.  All Rights Reserved.
  */
 
 #include "temp.h"
