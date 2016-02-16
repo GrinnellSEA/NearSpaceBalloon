@@ -20,7 +20,7 @@ void setupTemperatureSensor();
 /**
  * Reads current temperature from sensor.
  *
- * @returns current temperature, in Kelvins.
+ * @return current temperature, in Kelvins.
  */
 double getTemperature();
 
