@@ -20,7 +20,7 @@ void setup() {
 
 // runs continuously
 void loop() {
-    for (int i = 0; i < 15; i++) { // print temp every second for 15 seconds, then end
+    for (int i = 0; i < 15; i++) { // print temp every two seconds for 30 seconds, then end
         double kelvin = getTemperature();
         double farenheit = toFarenheit(kelvin);
         Serial.print("T = ");
@@ -29,10 +29,10 @@ void loop() {
 
         double mb = getPressure();
         Serial.print("P = ");
-        Serial.println(mb);
-        Serial.print(" mb");
+        Serial.print(mb);
+        Serial.println(" mb");
 
-        delay(1000);
+        delay(2000);
     }
 
     end();
