@@ -1,5 +1,7 @@
 /*
  * CONSTANTS
+ *
+ * Everything is in SI units.
  */
 
 // gas constant
@@ -17,8 +19,8 @@ const C_D = 0.3 // sphere coeff. of drag
 // balloon characteristics
 const m_empty = 0.8;
 const r_burst = 3.505;
-const m_payload = 0.2;
-const beta = 0.01; // extra pressure on inside of balloon due to stretchiness of latex
+const m_payload = 0.6;
+const beta = 0.02; // extra pressure on inside of balloon due to stretchiness of latex
 
 // gas molar masses
 const M_atm = 0.02896;
@@ -42,12 +44,12 @@ const base_h = 0;
  * Main routine, program entry point
  */
 function main() {
-	for (var v = 0.5; v < 2.0; v += 0.1) {
+	for (var V = 0.5; V < 2.0; V += 0.1) {
 		var string =  "";
-		string += `V = ${v.toFixed(4)},  \t`;
-        string += `v = ${getVelocity(v, base_h).toFixed(3)},  \t`;
-        string += `h = ${getBurstHeight(v).toFixed(0)} m,  \t`;
-        string += `t = ${(getAscentTime(v) / 60).toFixed(0)} min`;
+		string += `V = ${V.toFixed(4)},  \t`;
+        string += `v = ${getVelocity(V, base_h).toFixed(3)},  \t`;
+        string += `h = ${getBurstHeight(V).toFixed(0)} m,  \t`;
+        string += `t = ${(getAscentTime(V) / 60).toFixed(0)} min`;
 
         println(string);
 	}
