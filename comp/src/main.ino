@@ -4,18 +4,26 @@
  *
  * GRINNELL SPACE EXPLORATION AGENCY
  *
- * © 2015.  All Rights Reserved.
+ * © 2016.  All Rights Reserved.
  */
 
 #include <EEPROM.h>
 #include "temp.h"
 #include "pressure.h"
 
-int loop_count = 0;
+#define FIVE_MINUTES (5*60*1000)
+
+int address = 0;
+int max_addr;
 
 // runs once at start
 void setup() {
     Serial.begin(9600); // begin logging
+
+    max_addr = EEPROM.length();
+    // clear memory
+    for (int a = 0; a < max_addr; a++)
+        EEPROM.update(a, 0);
 
 //    setupTemperatureSensor() || error("Temperature sensor setup failed.");
 //    setupPressureSensor() || error("Pressure sensor setup failed.");
@@ -34,20 +42,15 @@ void loop() {
     long voltage = readVcc();
     byte vcc_int = (int) map(voltage, 2000, 7100, 0, 255);
 
-    if (loop_count % 5 == 0) { // every five minutes
-        // store temp
-        EEPROM.write(0, temp_int);
-        // and pressure
-        EEPROM.write(1, pres_int);
-        //and voltage
-        EEPROM.write(2, vcc_int);
-        // and iteration
-        int iteration_count = loop_count / 5;
-        EEPROM.write(3, iteration_count);
-    }
+    // store data
+    EEPROM.update(address + 0, temp_int);
+    EEPROM.update(address + 1, pres_int);
+    EEPROM.update(address + 2, vcc_int);
+    address += 3;
+    if (address + 3 >= max_addr) // If we'd run out of space next time
+       address = 0; 
 
-    loop_count++;
-    delay(60000); // every minute
+    delay(FIVE_MINUTES); 
 }
 
 void end() { while (true) delay(1000); }

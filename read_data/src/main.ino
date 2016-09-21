@@ -2,44 +2,45 @@
  * NEAR SPACE BALLOON
  * FLIGHT COMPUTER DATA COLLECTION
  *
- * GRINNELL COLLEGE
- * 2016.
+ * GRINNELL SPACE EXPLORATION AGENCY
+ *
+ * © 2016.  All Rights Reserved.
  */
 
 #include <EEPROM.h>
 
+int address = 0;
+int max_addr;
+
 void setup() {
    Serial.begin(9600); 
+
+   max_addr = EEPROM.length();
 }
 
 void loop() {
-    byte temp_int = EEPROM.read(0);
-    byte pres_int = EEPROM.read(1);
-    byte vcc_int = EEPROM.read(2);
-    byte time_int = EEPROM.read(3);
+    byte temp_int = EEPROM.read(address + 0);
+    byte pres_int = EEPROM.read(address + 1);
+    byte vcc_int = EEPROM.read(address + 2);
 
-    double temperature = map(temp_int, 0, 255, 0, 71);
+    if (temp_int == 0 && pres_int == 0 && vcc_int == 0) // end of data
+        end();
+
+    double temperature = map(temp_int, 0, 255, 0, 51);
     double pressure = map(pres_int, 0, 255, 950, 1050);
-    double voltage = map(vcc_int, 0, 255, 2.0, 7.1);
-    int minutes = time_int * 5;
+    double voltage = map(vcc_int, 0, 255, 2000, 7100);
+    int minutes = address / 3 * 5;
    
-    Serial.print("Temperature: ");
+    Serial.print(minutes);
+    Serial.print(" minutes: \t");
     Serial.print(temperature);
-    Serial.print(" °F\n");
-
-    Serial.print("Pressure: ");
+    Serial.print(" °F\t");
     Serial.print(pressure);
-    Serial.print(" mb\n");
-
-    Serial.print("Voltage: ");
+    Serial.print(" mb\t");
     Serial.print(voltage);
     Serial.print(" V\n");
 
-    Serial.print("Total time: ");
-    Serial.print(minutes);
-    Serial.print(" minutes\n");
-
-    end();
+    address += 3;
 }
 
 void end() { while(true) delay(10e3); }
