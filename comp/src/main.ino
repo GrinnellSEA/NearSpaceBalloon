@@ -9,33 +9,22 @@
 
 #include "temp.h"
 #include "pressure.h"
+#include "radio.h"
 
 // runs once at start
 void setup() {
     Serial.begin(9600); // begin logging
 
-    setupTemperatureSensor() || error("Temperature sensor setup failed.");
-    setupPressureSensor() || error("Pressure sensor setup failed.");
+    setupRadio();
+    //setupTemperatureSensor() || error("Temperature sensor setup failed.");
+    //setupPressureSensor() || error("Pressure sensor setup failed.");
 }
 
 // runs continuously
 void loop() {
-    for (int i = 0; i < 15; i++) { // print temp every two seconds for 30 seconds, then end
-        double kelvin = getTemperature();
-        double farenheit = toFarenheit(kelvin);
-        Serial.print("T = ");
-        Serial.print(farenheit);
-        Serial.print(" °F\t\t");
-
-        double mb = getPressure();
-        Serial.print("P = ");
-        Serial.print(mb);
-        Serial.println(" mb");
-
-        delay(2000);
-    }
-
-    end();
+    setRadio(HIGH);
+    delay(500);
+    setRadio(LOW);
 }
 
 void end() { while (true) delay(1000); }
