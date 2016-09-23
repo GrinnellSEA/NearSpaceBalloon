@@ -11,6 +11,8 @@
 #include "pressure.h"
 #include "radio.h"
 
+byte value = 0;
+
 // runs once at start
 void setup() {
     Serial.begin(9600); // begin logging
@@ -22,9 +24,9 @@ void setup() {
 
 // runs continuously
 void loop() {
-    setRadio(HIGH);
-    delay(500);
-    setRadio(LOW);
+    setRadio(value++);
+    value = value % 256;
+    delay(100);
 }
 
 void end() { while (true) delay(1000); }

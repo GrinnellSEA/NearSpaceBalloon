@@ -17,6 +17,6 @@
  */
 bool setupRadio();
 
-void setRadio(bool on);
+void setRadio(byte val);
 
 #endif // RADIO_H_
