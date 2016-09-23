@@ -17,11 +17,11 @@ bool setupRadio() {
     TCCR1B = TCCR1B & 0b11111000 | 0x01; // CHANGE THIS IF RADIO_PIN CHANGES
 
     pinMode(ENABLE_PIN, OUTPUT);
-//    digitalWrite(ENABLE_PIN, HIGH);
+    digitalWrite(ENABLE_PIN, HIGH);
 
     return true;
 }
 
 void setRadio(byte val) {
-  //  analogWrite(RADIO_PIN, val);
+    analogWrite(RADIO_PIN, val);
 }
