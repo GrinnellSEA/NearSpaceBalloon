@@ -16,6 +16,7 @@ void setup() {
    Serial.begin(9600); 
 
    max_addr = EEPROM.length();
+   Serial.println("time (minutes),temperature (°F),pressure (mb),voltage (V)");
 }
 
 void loop() {
@@ -32,13 +33,12 @@ void loop() {
     int minutes = address / 3 * 5;
    
     Serial.print(minutes);
-    Serial.print(" seconds: \t");
+    Serial.print(",");
     Serial.print(temperature);
-    Serial.print(" °F \t");
+    Serial.print(",");
     Serial.print(pressure);
-    Serial.print(" mb \t");
-    Serial.print(voltage);
-    Serial.print(" V\r\n");
+    Serial.print(",");
+    Serial.println(voltage);
 
     address += 3;
 }
