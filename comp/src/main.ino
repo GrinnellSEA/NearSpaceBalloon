@@ -11,7 +11,7 @@
 #include "temp.h"
 #include "pressure.h"
 
-#define INTERVAL (1*10*1000)
+#define INTERVAL (5*60*1000)
 #define BLINK (500)
 
 int address = 0;
