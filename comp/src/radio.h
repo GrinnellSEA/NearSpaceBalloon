@@ -18,7 +18,8 @@
 bool setupRadio();
 
 /**
- * Send a RTYY string
+ * Send a RTYY string.
+ * The function calculates the checksum and appends the checksum string.
  */
 void sendString(char * msg);
 
