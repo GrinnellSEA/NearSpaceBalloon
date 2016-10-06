@@ -17,6 +17,9 @@
  */
 bool setupRadio();
 
-void setRadio(byte val);
+/**
+ * Send a RTYY string
+ */
+void sendString(char * msg);
 
 #endif // RADIO_H_

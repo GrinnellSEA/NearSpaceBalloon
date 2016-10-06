@@ -24,10 +24,8 @@ void setup() {
 
 // runs continuously
 void loop() {
-    setRadio(80);
-    delay(1500);
-    setRadio(180);
-    delay(1000);
+    sendString("TESTING...");
+    delay(2000);
 }
 
 void end() { while (true) delay(1000); }
