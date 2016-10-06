@@ -24,9 +24,10 @@ void setup() {
 
 // runs continuously
 void loop() {
-    setRadio(value++);
-    value = value % 256;
-    delay(100);
+    setRadio(80);
+    delay(1500);
+    setRadio(180);
+    delay(1000);
 }
 
 void end() { while (true) delay(1000); }
