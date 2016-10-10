@@ -24,8 +24,7 @@ void setup() {
 
 // runs continuously
 void loop() {
-    sendString("TESTING...");
-    delay(2000);
+    end();
 }
 
 void end() { while (true) delay(1000); }

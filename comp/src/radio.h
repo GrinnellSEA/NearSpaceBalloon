@@ -18,9 +18,8 @@
 bool setupRadio();
 
 /**
- * Send a RTYY string.
- * The function calculates the checksum and appends the checksum string.
+ * Start or stop the radio transmission.
  */
-void sendString(char * msg);
+void ptt(bool on);
 
 #endif // RADIO_H_
