@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transcendence</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,300">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-blue.min.css">
+    
+    <link rel="stylesheet" href="css/fixes.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+        <!-- Header -->
+        <header class="mdl-layout__header mdl-color--red-600">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">
+                    <img src="assets/logo_128.png" class="logo">
+                    Transcendence
+                </span>
+
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+        <!-- Drawer -->
+        <div class="mdl-layout__drawer mdl-color--grey-900 mdl-color-text--grey-50">
+            <span class="mdl-layout-title">&nbsp;</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="#">
+                    <i class="material-icons">home</i>
+                    Overview
+                </a>
+                <a class="mdl-navigation__link" href="#">
+                    <i class="material-icons">map</i>
+                    Map
+                </a>
+                <a class="mdl-navigation__link" href="#">
+                    <i class="material-icons">timeline</i>
+                    Log
+                </a>
+                <a class="mdl-navigation__link" href="#">
+                    <i class="material-icons">settings</i>
+                    Settings
+                </a>
+            </nav>
+        </div>
+
+        <main class="mdl-layout__content">
+        <div class="page-content mdl-grid">
+            <!-- TEMP CARD -->
+            <div class="temp-card mdl-card mdl-cell mdl-cell--4-col mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <i class="material-icons">ac_unit</i>&nbsp;
+                    <h2 class="mdl-card__title-text">Temperature</h2>
+                </div>
+                <div id="temp">32 °F</div>
+            </div>
+
+            <!-- PRESSURE CARD -->
+            <div class="pres-card mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                    <i class="material-icons">wb_cloudy</i>&nbsp;
+                    <h2 class="mdl-card__title-text">Pressure</h2>
+                </div>
+                <div id="pres">1012 mb</div>
+            </div>
+
+            <!-- TIME CARD -->
+            <div class="time-card mdl-card mdl-cell mdl-cell--2-col mdl-shadow--2dp">
+                <div id="time">T+00:04</div>
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <script src="http://corymccartan.github.io/jslib/lib.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

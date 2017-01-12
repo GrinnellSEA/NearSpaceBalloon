@@ -1,0 +1,35 @@
+.logo {
+    height: 56px;
+    margin: 4px 1em 0 0;
+}
+
+.temp-card, .pres-card {
+    justify-content: space-between;
+}
+
+#temp {
+    font-size: 7em;
+    padding: 1rem;
+    line-height: 1;
+    color: #a0a0b0;
+}
+
+#pres {
+    font-size: 6em;
+    padding: 1rem;
+    line-height: 1;
+    color: #a0a0b0;
+}
+
+.time-card {
+    justify-content: center;
+}
+#time {
+    text-align: center;
+    transform: rotate(-90deg) translate(-0.5em, -0.5em);
+    transform-origin: 50% top 0;
+    font-size: 2.5em;
+    line-height: 1;
+    font-weight: bold;
+    color: #444;
+}
