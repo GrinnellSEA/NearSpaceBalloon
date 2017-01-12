@@ -13,6 +13,6 @@
 /**
  * Send the APRS packet with location and sensor information.
  */
-void send_packet();
+void send_packet(double pressure, double temperature);
 
 #endif // APRS_H_

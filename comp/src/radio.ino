@@ -7,27 +7,19 @@
  * © 2015.  All Rights Reserved.
  */
 
-#define RADIO_PIN 9
-#define ENABLE_PIN 8
-#define CRC16 0x1021
-
-#include <string.h>
-
-char datastring[80];
+#include "radio.h"
+#include "pin.h"
+#include "radio_config.h"
 
 bool setupRadio() {
-    pinMode(RADIO_PIN, OUTPUT);
-
-    // set high PWM frequency
-    TCCR1B = TCCR1B & 0b11111000 | 0x01; // CHANGE THIS IF RADIO_PIN CHANGES
-
-    pinMode(ENABLE_PIN, OUTPUT);
-    digitalWrite(ENABLE_PIN, HIGH);
+    pinMode(AUDIO_PIN, OUTPUT);
+    pinMode(PTT_PIN, OUTPUT);
 
     return true;
 }
 
 void ptt(bool on) {
-    digitalWrite(ENABLE_PIN, on);
-    if (on) delay(25); // wait 25ms for radio to turn on
+    pin_write(AUDIO_PIN, 0);
+    pin_write(PTT_PIN, on);
+    if (on) delay(1000); // wait for radio to turn on
 }

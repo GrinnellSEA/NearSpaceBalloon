@@ -48,5 +48,5 @@ double getPressure() {
         } else pressure = -1; // error value
     } else pressure = -1; // error value
 
-    return pressure;
+    return pressure; 
 }

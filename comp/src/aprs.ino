@@ -50,8 +50,8 @@ void send_packet(double pressure, double temperature) {
     snprintf(status, 6, "%d", 5.0); // voltage
     ax25_send_string(status);
     ax25_send_string("/P=");
-    snprintf(status, 6, "%d", pressure); 
     ax25_send_string(status);
+    snprintf(status, 6, "%d", pressure); 
     ax25_send_footer();
     ax25_flush_frame();
 }

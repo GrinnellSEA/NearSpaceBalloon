@@ -17,8 +17,8 @@ static const unsigned int MAX_PACKET = 512;  // bytes
 // Module globals
 static short crc;
 static byte ones_in_a_row;
-static byte packet[MAX_PACKET];
-static unsigned int packet_size;
+static byte packet[MAX_PACKET] = {0};
+static unsigned int packet_size = 0;
 
 // Module functions
 static void update_crc(byte a_bit) {
@@ -160,6 +160,7 @@ void ax25_send_footer() {
 
 void ax25_flush_frame() {
     // Key the transmitter and send the frame
+    Serial.println(packet_size);
     afsk_send(packet, packet_size);
     afsk_start();
 }

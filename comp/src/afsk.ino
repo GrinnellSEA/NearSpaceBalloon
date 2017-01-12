@@ -1,16 +1,16 @@
 /*
- * NEAR SPACE BALLOON PROJECT
  * FLIGHT COMPUTER CODE
+ * NEAR SPACE BALLOON PROJECT
  *
  * GRINNELL SPACE EXPLORATION AGENCY
- *
  * © 2016.  All Rights Reserved.
+ *
  */
 
 #include "radio_config.h"
 #include "afsk.h"
-#include "pin.h"
 #include "radio.h"
+#include "pin.h"
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <Arduino.h>
@@ -65,8 +65,8 @@ extern const byte afsk_sine_table[512] PROGMEM = {
 extern const int MODEM_CLOCK_RATE = F_CPU; // 16 MHz
 extern const byte REST_DUTY         = 127;
 extern const short TABLE_SIZE       = sizeof(afsk_sine_table);
-//extern const int PLAYBACK_RATE    = MODEM_CLOCK_RATE / 510;  // Phase correct PWM
-extern const int PLAYBACK_RATE    = MODEM_CLOCK_RATE / 256;  // Fast PWM
+extern const int PLAYBACK_RATE    = MODEM_CLOCK_RATE / 510;  // Phase correct PWM
+//extern const int PLAYBACK_RATE    = MODEM_CLOCK_RATE / 256;  // Fast PWM
 
 // The actual baudrate after rounding errors will be:
 // PLAYBACK_RATE / (integer_part_of((PLAYBACK_RATE * 256) / BAUD_RATE) / 256)
@@ -74,7 +74,7 @@ static const short BAUD_RATE       = 1200;
 static const short SAMPLES_PER_BAUD = ((int) PLAYBACK_RATE << 8) / BAUD_RATE;  // Fixed point 8.8
 static const short PHASE_DELTA_1200 = (((TABLE_SIZE * 1200UL) << 7) / PLAYBACK_RATE); // Fixed point 9.7
 static const short PHASE_DELTA_2200 = (((TABLE_SIZE * 2200UL) << 7) / PLAYBACK_RATE);
-static const byte SAMPLE_FIFO_SIZE = 32;
+static const byte SAMPLE_FIFO_SIZE = 4096; // 32
 
 
 // Module globals
@@ -234,11 +234,13 @@ bool afsk_flush() {
         // If done sending packet
         if (packet_pos == afsk_packet_size) {
             go = false;         // End of transmission
+            Serial.print("PACKET COMPLETE");
         }
         if (go == false) {
             if (afsk_is_fifo_empty_safe()) {
                 afsk_timer_stop();  // Disable modem
                 ptt(false);    // Release PTT
+                Serial.print("PACKET COMPLETE");
                 return false;       // Done
             } else {
                 return true;
@@ -260,11 +262,6 @@ bool afsk_flush() {
 
         phase += phase_delta;
         byte s = afsk_read_sample((phase >> 7) & (TABLE_SIZE - 1));
-
-#ifdef DEBUG_AFSK
-        Serial.print((short) s);
-        Serial.print('/');
-#endif
 
 #if PRE_EMPHASIS == 1
         if (phase_delta == PHASE_DELTA_1200)
@@ -301,7 +298,6 @@ AFSK_ISR
     } else {
         afsk_output_sample(afsk_fifo_out());
     }
-    afsk_clear_interrupt_flag();
 }
 
 #ifdef DEBUG_MODEM

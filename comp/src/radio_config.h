@@ -34,24 +34,6 @@
 // TX delay in milliseconds
 #define TX_DELAY      300
 
-// --------------------------------------------------------------------------
-// Tracker config (trackuino.pde)
-// --------------------------------------------------------------------------
-
-// APRS packets are slotted so that multiple trackers can be used without
-// them stepping on one another. The transmission times are governed by
-// the formula:
-//
-//         APRS_SLOT (seconds) + n * APRS_PERIOD (seconds)
-//
-// When launching multiple balloons, use the same APRS_PERIOD in all balloons
-// and set APRS_SLOT so that the packets are spaced equally in time.
-// Eg. for two balloons and APRS_PERIOD = 60, set APRS_SLOT to 0 and 30, 
-// respectively. The first balloon will transmit at 00:00:00, 00:01:00, 
-// 00:02:00, etc. and the second balloon will transmit at 00:00:30, 00:01:30,
-// 00:02:30, etc.
-#define APRS_SLOT     0     // seconds. -1 disables slotted transmissions
-#define APRS_PERIOD   60    // seconds
 
 
 // --------------------------------------------------------------------------
@@ -75,7 +57,7 @@
 // --------------------------------------------------------------------------
 
 // This is the PTT pin
-#define PTT_PIN           4
+#define PTT_PIN           8
 
 
 // --------------------------------------------------------------------------
@@ -100,12 +82,10 @@
 // 3. When flashing the firmware, disconnect the GPS from the RX pin or you
 //    will get errors.
 
-// #define DEBUG_GPS    // GPS sentence dump and checksum validation
 // #define DEBUG_AX25   // AX.25 frame dump
 // #define DEBUG_MODEM  // Modem ISR overrun and profiling
 // #define DEBUG_AFSK   // AFSK (modulation) output
 // #define DEBUG_RESET  // AVR reset
-// #define DEBUG_SENS   // Sensors
 
 #endif
 

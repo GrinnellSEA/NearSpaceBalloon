@@ -33,23 +33,23 @@ extern const byte afsk_sine_table[] PROGMEM;
 #endif
 
 inline byte afsk_read_sample(int phase) {
-  return pgm_read_byte_near(afsk_sine_table + phase);
+    return pgm_read_byte_near(afsk_sine_table + phase);
 }
 
 inline void afsk_output_sample(byte s) {
-  OCR2 = s;
+    OCR2 = s;
 }
 
 #ifdef DEBUG_MODEM
 inline short afsk_timer_counter() {
-  short t = TCNT2;
-  if ((TIFR2 & _BV(TOV2)) && t < 128)
-    t += 256;
-  return t;
+    short t = TCNT2;
+    if ((TIFR2 & _BV(TOV2)) && t < 128)
+        t += 256;
+    return t;
 }
 
 inline int afsk_isr_overrun() {
-  return (TIFR2 & _BV(TOV2));
+    return (TIFR2 & _BV(TOV2));
 }
 #endif
 

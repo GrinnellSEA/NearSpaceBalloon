@@ -10,6 +10,8 @@
 #include "temp.h"
 #include "pressure.h"
 #include "radio.h"
+#include "aprs.h"
+#include "rtty.h"
 
 byte value = 0;
 
@@ -18,13 +20,26 @@ void setup() {
     Serial.begin(9600); // begin logging
 
     setupRadio();
-    //setupTemperatureSensor() || error("Temperature sensor setup failed.");
-    //setupPressureSensor() || error("Pressure sensor setup failed.");
+    setupTemperatureSensor() || error("Temperature sensor setup failed.");
+    setupPressureSensor() || error("Pressure sensor setup failed.");
+
+    ptt(true);
+}
+
+void loop2() {
+    send_packet(getTemperature(), getPressure());
+    delay(1000);
 }
 
 // runs continuously
 void loop() {
-    end();
+    char msg[80];
+    int temp = (int) getTemperature();
+    int pres = (int) getPressure();
+    Serial.print(temp);
+    sprintf(msg, "GSEA | Temperature %d K, Pressure %d mbar\n", temp, pres);
+    send_rtty_string(msg);
+    delay(5000);
 }
 
 void end() { while (true) delay(1000); }
