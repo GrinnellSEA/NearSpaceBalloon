@@ -37,7 +37,7 @@ void loop() {
     int temp = (int) getTemperature();
     int pres = (int) getPressure();
     Serial.print(temp);
-    sprintf(msg, "GSEA | Temperature %d K, Pressure %d mbar\n", temp, pres);
+    sprintf(msg, "GSEA~S %ld~T %d~P %d~\n", millis()/1000, temp, pres);
     send_rtty_string(msg);
     delay(5000);
 }

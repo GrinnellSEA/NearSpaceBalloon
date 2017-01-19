@@ -1,20 +1,20 @@
 .logo {
     height: 56px;
-    margin: 4px 1em 0 0;
+    margin: 2px 1em 0 0;
+}
+
+#loading {
+    display: block;
+    margin: 20vh auto;
+    width: 48px;
+    height: 48px;
 }
 
 .temp-card, .pres-card {
     justify-content: space-between;
 }
 
-#temp {
-    font-size: 7em;
-    padding: 1rem;
-    line-height: 1;
-    color: #a0a0b0;
-}
-
-#pres {
+#temp, #pres {
     font-size: 6em;
     padding: 1rem;
     line-height: 1;
@@ -26,10 +26,12 @@
 }
 #time {
     text-align: center;
-    transform: rotate(-90deg) translate(-0.5em, -0.5em);
-    transform-origin: 50% top 0;
-    font-size: 2.5em;
+    font-size: 4em;
     line-height: 1;
     font-weight: bold;
     color: #444;
+}
+
+.chart {
+    margin: 0.5em 1em 0.5em 0.5em;
 }

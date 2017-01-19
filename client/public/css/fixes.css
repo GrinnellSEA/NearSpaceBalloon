@@ -16,7 +16,12 @@
     margin-right: 32px;
 }
 
+.mdl-layout__header-row {
+    padding: 0 40px 0 20px;
+}
+
 main {
-    background-color: #eee
+    background-color: #eee;
+    min-height: 100vh;
 }
 
