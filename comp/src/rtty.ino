@@ -54,7 +54,7 @@ void sendBit(byte bit) {
     // corresponds to 200 carrier shift
     analogWrite(AUDIO_PIN, bit ? 110 : 100);
     // two-step delay for more accuracy
-    delayMicroseconds(10000);
+    delayMicroseconds(9091); // 110 baud
     //delayMicroseconds(10000);
 }
 

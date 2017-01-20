@@ -12,8 +12,12 @@
 #include "radio.h"
 #include "aprs.h"
 #include "rtty.h"
+#include "gps.h"
 
-byte value = 0;
+#define INTERVAL 10000
+
+ProbeInfo info;
+unsigned long previous = 0;
 
 // runs once at start
 void setup() {
@@ -33,13 +37,31 @@ void loop2() {
 
 // runs continuously
 void loop() {
-    char msg[80];
-    int temp = (int) getTemperature();
-    int pres = (int) getPressure();
-    Serial.print(temp);
-    sprintf(msg, "GSEA~S %ld~T %d~P %d~\n", millis()/1000, temp, pres);
-    send_rtty_string(msg);
-    delay(5000);
+    getGPSData(&info);
+
+    unsigned long current = millis();
+
+    if (current - previous >= INTERVAL) {
+        previous = current;
+
+        char msg[80];
+
+        int temp = (int) (10*getTemperature());
+        int pres = (int) getPressure();
+        long lat = (long) (10000 * info.latitude);
+        long lon = (long) (10000 * info.latitude);
+        int alt = (int) (10 * info.altitude);
+
+        sprintf(msg, "GSEA~S %ld~T %d~P %d~X %d~Y %d~A %d~\n", 
+                millis()/1000, 
+                temp, 
+                pres
+                lon,
+                lat,
+                alt
+            );
+        send_rtty_string(msg);
+    }
 }
 
 void end() { while (true) delay(1000); }
