@@ -1,0 +1,43 @@
+.logo {
+    height: 56px;
+    margin: 2px 1em 0 0;
+}
+
+#loading {
+    display: block;
+    margin: 20vh auto;
+    width: 48px;
+    height: 48px;
+}
+
+.chart-card {
+    justify-content: space-between;
+}
+
+.map-card {
+    width: 96vw;
+}
+#map {
+    width: 100%;
+    height: 400px;
+}
+
+#temp, #pres, #alt {
+    font-size: 6em;
+    padding: 1rem;
+    line-height: 1;
+    color: #a0a0b0;
+}
+
+#time {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 8vw;
+    line-height: 1;
+    font-weight: bold;
+    color: #444;
+}
+
+.chart {
+    margin: 0.5em 1em 0.5em 0.5em;
+}
