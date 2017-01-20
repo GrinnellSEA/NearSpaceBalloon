@@ -14,7 +14,7 @@
 #include "rtty.h"
 #include "gps.h"
 
-#define INTERVAL 10000
+#define INTERVAL 10000 // how often to send radio signals
 
 ProbeInfo info;
 unsigned long previous = 0;
@@ -22,7 +22,7 @@ unsigned long previous = 0;
 // runs once at start
 void setup() {
     setupRadio();
-    setupGPS() || err();
+    setupGPS();
     setupTemperatureSensor();
     setupPressureSensor();
     ptt(true);
@@ -62,7 +62,5 @@ void loop() {
         send_rtty_string(msg);
     }
 }
-
-bool err() { end(); }
 
 void end() { while (true) delay(1000); }
