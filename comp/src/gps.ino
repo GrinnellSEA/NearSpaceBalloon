@@ -8,7 +8,6 @@
  */
 
 #include "gps.h"
-#include <SoftwareSerial.h>
 
 #define ENABLE_GPS 12
 
@@ -18,16 +17,13 @@
 #define SAT 6
 #define ALT 8
 
-SoftwareSerial gps_serial(4, 5); // RX, TX
-
 byte index = 0;
 byte buffer[82];
 
 bool setupGPS() {
     pinMode(ENABLE_GPS, OUTPUT);
 
-    gps_serial.begin(9600);
-    delay(100);
+    Serial.begin(9600);
 
     digitalWrite(ENABLE_GPS, HIGH);
     delay(400);
@@ -38,8 +34,8 @@ bool setupGPS() {
 void getGPSData(ProbeInfo * info) {
     bool newData = false;
 
-    while (gps_serial.available()) {
-        char c = gps_serial.read();
+    while (Serial.available()) {
+        char c = Serial.read();
 
         if ((c == '$') || (index >= 80)) // start of new line
             index = 0;
@@ -258,11 +254,11 @@ bool setDynamicModel(byte mode) {
  * Send a command/message to the GPS unit.
  */
 void sendUBX(byte* message, byte length) {
-    gps_serial.flush();
-    gps_serial.write(0xFF);
+    Serial.flush();
+    Serial.write(0xFF);
     delay(500);
     for (byte i = 0; i < length; i++) {
-        gps_serial.write(message[i]);
+        Serial.write(message[i]);
     }
 }
 
@@ -303,8 +299,8 @@ bool getUBX_ACK(byte* message) {
         if (millis() - start_time > 3000) return false;
 
         // ensure data is available for reading
-        if (gps_serial.available()) {
-            b = gps_serial.read();
+        if (Serial.available()) {
+            b = Serial.read();
 
             // check that bytes arrive in order
             if (b == ackPacket[ackByteID]) {

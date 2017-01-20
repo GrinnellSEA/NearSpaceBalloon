@@ -21,13 +21,10 @@ unsigned long previous = 0;
 
 // runs once at start
 void setup() {
-    Serial.begin(9600); // begin logging
-
     setupRadio();
-    setupGPS() || error("GPS sensor setup failed.");
-    setupTemperatureSensor() || error("Temperature sensor setup failed.");
-    setupPressureSensor() || error("Pressure sensor setup failed.");
-
+    setupGPS() || err();
+    setupTemperatureSensor();
+    setupPressureSensor();
     ptt(true);
 }
 
@@ -50,7 +47,7 @@ void loop() {
         int temp = (int) (10*getTemperature());
         int pres = (int) getPressure();
         long lat = (long) (10000 * info.latitude);
-        long lon = (long) (10000 * info.latitude);
+        long lon = (long) (10000 * info.longitude);
         int alt = (int) (10 * info.altitude);
 
         sprintf(msg, "GSEA~S %ld~T %d~P %d~X %ld~Y %ld~A %d~\n", 
@@ -61,16 +58,11 @@ void loop() {
                 lat,
                 alt
             );
+
         send_rtty_string(msg);
     }
 }
 
+bool err() { end(); }
+
 void end() { while (true) delay(1000); }
-
-bool error(char *msg) {
-    Serial.print("Error: ");
-    Serial.println(msg);
-
-    end();
-    return false;
-}

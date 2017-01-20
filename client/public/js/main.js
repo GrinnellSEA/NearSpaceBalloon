@@ -1,7 +1,8 @@
 const TESTING_MODE = true;
-const POLLING_INTERVAL = 20; // seconds
+const POLLING_INTERVAL = 10; // seconds
 
 let tempChart, presChart, altChart;
+let map, path, marker;
 
 async function main() {
     let response = await fetch("/rtty/all");
@@ -35,6 +36,8 @@ async function main() {
         label: "Altitude (m)",
     });
 
+    plotPath(data.coords);
+
     setInterval(update, POLLING_INTERVAL * 1000);
 }
 
@@ -46,11 +49,13 @@ async function update() {
     let text = await response.text();
 
     let data = processText(text);
+    if (data.time.length === 0) return;
 
     updateBasicStats(data);
     addData(tempChart, data.time, data.temp);
     addData(presChart, data.time, data.pres);
     addData(altChart, data.time, data.alt);
+    addPathPoints(data.coords);
 }
 
 function processText(text) {
@@ -61,8 +66,7 @@ function processText(text) {
         time: [],
         temp: [],
         pres: [],
-        lat: [],
-        lon: [],
+        coords: [],
         alt: [],
     };
     
@@ -76,15 +80,17 @@ function processText(text) {
         let kelvin = +matches[2] / 10;
         let pressure = +matches[3];
         let farenheit = (kelvin - 273.15) * 1.8 + 32;
-        let longitude = +matches[4] / 10000;
+        let longitude = -matches[4] / 10000;
         let latitude = +matches[5] / 10000;
         let altitude = +matches[6] / 10;
 
         data.time.push(minutes);
         data.temp.push(farenheit);
         data.pres.push(pressure);
-        data.lon.push(longitude);
-        data.lat.push(latitude);
+        data.coords.push({
+            lat: latitude,
+            lng: longitude,
+        });
         data.alt.push(altitude);
     }
 
@@ -96,6 +102,49 @@ function updateBasicStats(data) {
     $("#pres").innerText = data.pres.last() + " mb";
     $("#alt").innerText = data.alt.last() + " m";
     $("#time").innerText = "T+" + toTimeString(data.time.last());
+}
+
+function initMap() {
+    let grinnell = {lat: 41.7491836, lng: -92.7213833};
+    map = new google.maps.Map($("#map"), {
+        zoom: 8,
+        center: grinnell,
+        mapTypeId: 'terrain',
+        scrollwheel: false,
+        streetViewControl: false,
+    });
+    setTimeout(() => google.maps.event.trigger(map, "resize"), 1000);
+}
+
+function plotPath(coords) {
+    path = new google.maps.Polyline({
+        path: coords,
+        geodesic: true,
+        strokeColor: '#c00000',
+        strokeOpacity: 0.8,
+        strokeWeight: 4,
+    });
+
+    path.setMap(map);
+
+    var loc = coords.last();
+    marker = new google.maps.Marker({
+        position: loc,
+        map,
+    })
+
+    setTimeout(() => map.panTo(loc), 1000);  
+}
+
+function addPathPoints(coords) {
+    let pathObj = path.getPath();
+    for (let pt of coords) {
+        pathObj.push(new google.maps.LatLng(pt));
+    }
+
+    var loc = coords.last();
+    marker.setPosition(loc);
+    map.panTo(loc);  
 }
 
 function toTimeString(minutes) {
