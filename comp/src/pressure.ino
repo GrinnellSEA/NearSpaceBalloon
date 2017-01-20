@@ -4,7 +4,7 @@
  *
  * GRINNELL SPACE EXPLORATION AGENCY
  *
- * © 2016.  All Rights Reserved.
+ * © 2017.  All Rights Reserved.
  */
 
 #include "pressure.h"
@@ -48,5 +48,5 @@ double getPressure() {
         } else pressure = -1; // error value
     } else pressure = -1; // error value
 
-    return pressure;
+    return pressure; 
 }
