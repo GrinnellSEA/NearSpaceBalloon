@@ -1,7 +1,7 @@
 const TESTING_MODE = true;
 const POLLING_INTERVAL = 20; // seconds
 
-let tempChart, presChart;
+let tempChart, presChart, altChart;
 
 async function main() {
     let response = await fetch("/rtty/all");
@@ -29,6 +29,11 @@ async function main() {
         data: data.pres,
         label: "Pressure (mb)",
     });
+    altChart = drawLineChart("#alt-graph", {
+        time: data.time,
+        data: data.alt,
+        label: "Altitude (m)",
+    });
 
     setInterval(update, POLLING_INTERVAL * 1000);
 }
@@ -45,6 +50,7 @@ async function update() {
     updateBasicStats(data);
     addData(tempChart, data.time, data.temp);
     addData(presChart, data.time, data.pres);
+    addData(altChart, data.time, data.alt);
 }
 
 function processText(text) {
@@ -55,22 +61,31 @@ function processText(text) {
         time: [],
         temp: [],
         pres: [],
+        lat: [],
+        lon: [],
+        alt: [],
     };
     
     // iterate backwards through list
     for (let entry of entries) {
-        let matches = entry.match(/GSEA~S (\d+)~T (\d+)~P (\d+)~/);        
+        let matches = entry.match(/GSEA~S (\d+)~T (\d+)~P (\d+)~X (\d+)~Y (\d+)~A (\d+)~/);        
         // skip invalid entries
         if (matches === null) continue;
 
         let minutes = +matches[1] / 60;
-        let kelvin = +matches[2];
+        let kelvin = +matches[2] / 10;
         let pressure = +matches[3];
         let farenheit = (kelvin - 273.15) * 1.8 + 32;
+        let longitude = +matches[4] / 10000;
+        let latitude = +matches[5] / 10000;
+        let altitude = +matches[6] / 10;
 
         data.time.push(minutes);
         data.temp.push(farenheit);
         data.pres.push(pressure);
+        data.lon.push(longitude);
+        data.lat.push(latitude);
+        data.alt.push(altitude);
     }
 
     return data;
@@ -79,6 +94,7 @@ function processText(text) {
 function updateBasicStats(data) {
     $("#temp").innerText = Math.round(data.temp.last()) + " °F";
     $("#pres").innerText = data.pres.last() + " mb";
+    $("#alt").innerText = data.alt.last() + " m";
     $("#time").innerText = "T+" + toTimeString(data.time.last());
 }
 

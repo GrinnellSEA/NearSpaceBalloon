@@ -24,6 +24,7 @@ void setup() {
     Serial.begin(9600); // begin logging
 
     setupRadio();
+    setupGPS() || error("GPS sensor setup failed.");
     setupTemperatureSensor() || error("Temperature sensor setup failed.");
     setupPressureSensor() || error("Pressure sensor setup failed.");
 
@@ -52,10 +53,10 @@ void loop() {
         long lon = (long) (10000 * info.latitude);
         int alt = (int) (10 * info.altitude);
 
-        sprintf(msg, "GSEA~S %ld~T %d~P %d~X %d~Y %d~A %d~\n", 
+        sprintf(msg, "GSEA~S %ld~T %d~P %d~X %ld~Y %ld~A %d~\n", 
                 millis()/1000, 
                 temp, 
-                pres
+                pres,
                 lon,
                 lat,
                 alt

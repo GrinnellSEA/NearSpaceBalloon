@@ -10,11 +10,11 @@
     height: 48px;
 }
 
-.temp-card, .pres-card {
+.chart-card {
     justify-content: space-between;
 }
 
-#temp, #pres {
+#temp, #pres, #alt {
     font-size: 6em;
     padding: 1rem;
     line-height: 1;

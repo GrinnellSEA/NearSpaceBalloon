@@ -60,7 +60,7 @@
             <div hidden class="page-content mdl-grid">
 
                 <!-- TEMP CARD -->
-                <div class="temp-card mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp">
+                <div class="chart-card mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp">
                     <div class="mdl-card__title">
                         <i class="material-icons">ac_unit</i>&nbsp;
                         <h2 class="mdl-card__title-text">Temperature</h2>
@@ -70,7 +70,7 @@
                 </div>
 
                 <!-- PRESSURE CARD -->
-                <div class="pres-card mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp">
+                <div class="chart-card mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp">
                     <div class="mdl-card__title">
                         <i class="material-icons">wb_cloudy</i>&nbsp;
                         <h2 class="mdl-card__title-text">Pressure</h2>
@@ -80,8 +80,18 @@
                 </div>
 
                 <!-- TIME CARD -->
-                <div class="time-card mdl-card mdl-cell mdl-cell--4-col mdl-shadow--2dp">
+                <div class="time-card mdl-card mdl-cell mdl-cell--5-col mdl-shadow--2dp">
                     <div id="time">T+00:04</div>
+                </div>
+
+                <!-- ALTITUDE CARD -->
+                <div class="chart-card mdl-card mdl-cell mdl-cell--7-col mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <i class="material-icons"></i>&nbsp;
+                        <h2 class="mdl-card__title-text">Altitude</h2>
+                    </div>
+                    <div id="alt">40m</div>
+                    <div id="alt-graph" class="chart"></div>
                 </div>
             </div>
         </main>
