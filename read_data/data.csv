@@ -1,0 +1,28 @@
+Type [C-a] [C-h] to see available commands
+
+Terminal ready
+time (minutes),temperature (°F),pressure (mb),voltage (V)
+0,24.80,984.90,5.04
+
+Thanks for using picocom
+picocom v2.1
+
+port is        : /dev/tty.usbmodem1421
+flowcontrol    : none
+baudrate is    : 9600
+parity is      : none
+databits are   : 8
+stopbits are   : 1
+escape is      : C-a
+local echo is  : no
+noinit is      : no
+noreset is     : no
+nolock is      : yes
+send_cmd is    : sz -vv
+receive_cmd is : rz -vv -E
+imap is        : 
+omap is        : 
+emap is        : crcrlf,delbs,
+
+Searching for Serial monitor (picocom) ... /usr/local/bin/picocom
+Guessing serial port ... /dev/tty.usbmodem1421

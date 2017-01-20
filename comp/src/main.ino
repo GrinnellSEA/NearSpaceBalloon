@@ -1,18 +1,19 @@
 /*
  * NEAR SPACE BALLOON PROJECT
- * FLIGHT COMPUTER CODE
+ * MAIN FLIGHT COMPUTER CODE
  *
  * GRINNELL SPACE EXPLORATION AGENCY
  *
- * © 2016.  All Rights Reserved.
+ * © 2017.  All Rights Reserved.
  */
 
 #include "temp.h"
 #include "pressure.h"
 #include "radio.h"
-#include "aprs.h"
-#include "rtty.h"
 #include "gps.h"
+#include "battery.h"
+//#include "aprs.h"
+#include "rtty.h"
 
 #define INTERVAL 10000 // how often to send radio signals
 
@@ -28,10 +29,10 @@ void setup() {
     ptt(true);
 }
 
-void loop2() {
-    send_packet(getTemperature(), getPressure());
-    delay(1000);
-}
+// void loop() {
+//     send_packet(getTemperature(), getPressure());
+//     delay(1000);
+// }
 
 // runs continuously
 void loop() {
@@ -44,19 +45,21 @@ void loop() {
 
         char msg[80];
 
-        int temp = (int) (10*getTemperature());
+        int temp = (int) (10 * getTemperature());
         int pres = (int) getPressure();
         long lat = (long) (10000 * info.latitude);
         long lon = (long) (10000 * info.longitude);
         int alt = (int) (10 * info.altitude);
+        long bat = getVoltage();
 
-        sprintf(msg, "GSEA~S %ld~T %d~P %d~X %ld~Y %ld~A %d~\n", 
+        sprintf(msg, "GSEA~S%ldT%dP%dX%ldY%ldA%dB%ld~\n", 
                 millis()/1000, 
                 temp, 
                 pres,
                 lon,
                 lat,
-                alt
+                alt,
+                bat
             );
 
         send_rtty_string(msg);

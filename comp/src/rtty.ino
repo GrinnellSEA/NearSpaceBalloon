@@ -2,15 +2,14 @@
  * NEAR SPACE BALLOON PROJECT
  * FLIGHT COMPUTER CODE
  *
- * GRINNELL SPACE EXPLORATION AGENCY *
- * © 2016.  All Rights Reserved.
+ * GRINNELL SPACE EXPLORATION AGENCY
+ *
+ * © 2017.  All Rights Reserved.
  */ 
+
 #include "radio_config.h"
 #include "radio.h"
 #include "pin.h"
-#include "aprs.h"
-#include "afsk.h"
-#include "ax25.h"
 
 #define CRC16 0x1021
 char datastring[80];

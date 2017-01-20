@@ -19,7 +19,7 @@ function drawLineChart(el, config) {
             y: {
                 label: config.label,
                 tick: {
-                    format: x => Math.round(x),
+                    format: config.yTick || (x => Math.round(x)),
                 },
             },
         },

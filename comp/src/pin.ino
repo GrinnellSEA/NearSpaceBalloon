@@ -4,11 +4,10 @@
  *
  * GRINNELL SPACE EXPLORATION AGENCY
  *
- * © 2016.  All Rights Reserved.
+ * © 2017.  All Rights Reserved.
  */
 
 #include <pins_arduino.h>
-#include <Arduino.h>
 #include "pin.h"
 
 // This is a digitalWrite() replacement that does not disrupt

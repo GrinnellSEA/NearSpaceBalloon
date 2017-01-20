@@ -1,7 +1,7 @@
 const TESTING_MODE = true;
 const POLLING_INTERVAL = 10; // seconds
 
-let tempChart, presChart, altChart;
+let tempChart, presChart, altChart, battChart;
 let map, path, marker;
 
 async function main() {
@@ -35,6 +35,13 @@ async function main() {
         data: data.alt,
         label: "Altitude (m)",
     });
+    battChart = drawLineChart("#batt-graph", {
+        time: data.time,
+        data: data.batt,
+        label: "Battery Voltage (V)",
+        yTick: x => x.toFixed(1),
+        yFormat: x => x.toFixed(1) + " V",
+    });
 
     plotPath(data.coords);
 
@@ -55,6 +62,7 @@ async function update() {
     addData(tempChart, data.time, data.temp);
     addData(presChart, data.time, data.pres);
     addData(altChart, data.time, data.alt);
+    addData(battChart, data.time, data.batt);
     addPathPoints(data.coords);
 }
 
@@ -68,11 +76,12 @@ function processText(text) {
         pres: [],
         coords: [],
         alt: [],
+        batt: [],
     };
     
     // iterate backwards through list
     for (let entry of entries) {
-        let matches = entry.match(/GSEA~S (\d+)~T (\d+)~P (\d+)~X (\d+)~Y (\d+)~A (\d+)~/);        
+        let matches = entry.match(/GSEA~S(\d+)T(\d+)P(\d+)X(\d+)Y(\d+)A(\d+)B(\d+)~/);        
         // skip invalid entries
         if (matches === null) continue;
 
@@ -83,6 +92,7 @@ function processText(text) {
         let longitude = -matches[4] / 10000;
         let latitude = +matches[5] / 10000;
         let altitude = +matches[6] / 10;
+        let voltage = +matches[7] / 1000;
 
         data.time.push(minutes);
         data.temp.push(farenheit);
@@ -92,6 +102,7 @@ function processText(text) {
             lng: longitude,
         });
         data.alt.push(altitude);
+        data.batt.push(voltage);
     }
 
     return data;
@@ -102,6 +113,7 @@ function updateBasicStats(data) {
     $("#pres").innerText = data.pres.last() + " mb";
     $("#alt").innerText = data.alt.last() + " m";
     $("#time").innerText = "T+" + toTimeString(data.time.last());
+    $("#batt").innerText = data.batt.last().toFixed(1);
 }
 
 function initMap() {
@@ -171,3 +183,4 @@ function showToast(msg) {
 Array.prototype.last = function() {
     return this[this.length - 1];
 };
+

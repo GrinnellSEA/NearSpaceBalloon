@@ -4,7 +4,7 @@
  *
  * GRINNELL SPACE EXPLORATION AGENCY
  *
- * © 2016.  All Rights Reserved.
+ * © 2017.  All Rights Reserved.
  */
 
 void send_rtty_string(char * string);
