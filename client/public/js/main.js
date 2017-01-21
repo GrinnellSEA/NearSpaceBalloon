@@ -142,6 +142,7 @@ function plotPath(coords) {
     var loc = coords.last();
     marker = new google.maps.Marker({
         position: loc,
+        //icon: "assets/balloon.png",
         map,
     })
 
